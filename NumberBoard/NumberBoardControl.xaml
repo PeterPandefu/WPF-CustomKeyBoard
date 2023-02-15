@@ -1,0 +1,150 @@
+﻿<UserControl
+    x:Class="CustomKeyboard.NumberBoardControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CustomKeyboard"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="350"
+    Height="300"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <Grid>
+        <Border
+            Padding="10"
+            Background="#dadada"
+            CornerRadius="20">
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="5"
+                    Direction="320"
+                    Opacity="0"
+                    RenderingBias="Performance"
+                    ShadowDepth="1"
+                    Color="Gray" />
+            </Border.Effect>
+            <Grid Background="Transparent" ButtonBase.Click="Grid_Click">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <local:KeyboardKey
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Margin="2"
+                    Content="0"
+                    IsNumberKey="False"
+                    KeyboardKeyType="Long"
+                    Tag="96" />
+                <local:KeyboardKey
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="2"
+                    Content="."
+                    Tag="110" />
+
+                <local:KeyboardKey
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Margin="2"
+                    Click="Close_Click"
+                    Content="取消"
+                    Tag="" />
+                <local:KeyboardKey
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="3"
+                    Margin="2"
+                    Content="确认"
+                    KeyboardKeyType="Vertical"
+                    Tag="13" />
+                <local:KeyboardKey
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Margin="2"
+                    Tag="8">
+                    <local:KeyboardKey.Content>
+                        <Image Width="35">
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M0,0 V1024 H1024 V0 H0 Z">
+                                            <GeometryDrawing Brush="#FF212121" Geometry="F1 M1024,1024z M0,0z M800,170.666667A138.666667,138.666667,0,0,1,938.453333,301.482667L938.666667,309.333333 938.666667,714.666667A138.666667,138.666667,0,0,1,807.850667,853.12L800,853.333333 437.290667,853.333333A138.666667,138.666667,0,0,1,348.330667,821.077333L341.717333,815.146667 128.554667,612.48A138.666667,138.666667,0,0,1,123.648,416.469333L128.554667,411.52 341.717333,208.853333A138.666667,138.666667,0,0,1,428.416,170.965333L437.290667,170.666667 799.957333,170.666667z M488.362667,358.272A32,32,0,0,0,443.562667,403.072L446.677333,406.613333 552.106667,512 446.72,617.386667 443.648,620.970667A32,32,0,0,0,488.405333,665.728L491.989333,662.613333 597.333333,557.269333 702.72,662.656 706.304,665.728A32,32,0,0,0,751.061333,620.928L747.946667,617.386667 642.56,512 747.946667,406.613333 751.061333,403.029333A32,32,0,0,0,706.261333,358.272L702.677333,361.386667 597.333333,466.730667 491.989333,361.344 488.405333,358.272z" />
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </local:KeyboardKey.Content>
+                </local:KeyboardKey>
+
+                <local:KeyboardKey
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="2"
+                    Content="1"
+                    Tag="97" />
+                <local:KeyboardKey
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="2"
+                    Content="2"
+                    Tag="98" />
+                <local:KeyboardKey
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="2"
+                    Content="3"
+                    Tag="99" />
+
+                <local:KeyboardKey
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="2"
+                    Content="4"
+                    Tag="100" />
+                <local:KeyboardKey
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="2"
+                    Content="5"
+                    Tag="101" />
+                <local:KeyboardKey
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="2"
+                    Content="6"
+                    Tag="102" />
+
+                <local:KeyboardKey
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="2"
+                    Content="7"
+                    Tag="103" />
+                <local:KeyboardKey
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="2"
+                    Content="8"
+                    Tag="104" />
+                <local:KeyboardKey
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="2"
+                    Content="9"
+                    Tag="105" />
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

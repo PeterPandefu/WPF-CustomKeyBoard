@@ -1,0 +1,299 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CustomKeyboard">
+
+
+    <Style TargetType="{x:Type local:KeyboardKey}">
+        <Setter Property="TextBlock.FontSize" Value="28" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:KeyboardKey}">
+                    <Grid>
+                        <Viewbox Stretch="Fill">
+                            <Image
+                                x:Name="backGround"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="3" />
+                        </Viewbox>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                FontSize="18"
+                                Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ShiftKeyWord}" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ContentSource="Content"
+                                TextBlock.FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=FontSize}"
+                                TextBlock.Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}"
+                                TextBlock.TextAlignment="Center" />
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.6" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3" />
+                        </Trigger>
+
+                        <Trigger Property="KeyboardKeyType" Value="Normal">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_1U_DrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Long">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2UDrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Longer">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2_5U_DrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Longest">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_5U_DrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Vertical">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_V_DrawingImage}" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_1U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Long" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Longer" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2_5U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Longest" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_5U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Vertical" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_V_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:ToggonKeyboardKey}">
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="TextBlock.FontSize" Value="28" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ToggonKeyboardKey}">
+                    <Grid>
+                        <Viewbox Stretch="Fill">
+                            <Image
+                                x:Name="backGround"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="3" />
+                        </Viewbox>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                FontSize="18"
+                                Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ShiftKeyWord}" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ContentSource="Content"
+                                TextBlock.FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=FontSize}"
+                                TextBlock.Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}"
+                                TextBlock.TextAlignment="Center" />
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.6" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3" />
+                        </Trigger>
+
+                        <Trigger Property="KeyboardKeyType" Value="Normal">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_1U_DrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Long">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2UDrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Longer">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2_5U_DrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Longest">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_5U_DrawingImage}" />
+                        </Trigger>
+                        <Trigger Property="KeyboardKeyType" Value="Vertical">
+                            <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_V_DrawingImage}" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_1U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Long" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Longer" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2_5U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Longest" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_5U_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Vertical" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_V_Pressed_DrawingImage}" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_1U_Pressed_DrawingImage}" />
+                                <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground" Value="White" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Long" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_Pressed_DrawingImage}" />
+                                <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground" Value="White" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Longer" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2_5U_Pressed_DrawingImage}" />
+                                <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground" Value="White" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Longest" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_5U_Pressed_DrawingImage}" />
+                                <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground" Value="White" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="True" />
+                                <Condition Property="KeyboardKeyType" Value="Vertical" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="backGround" Property="Source" Value="{DynamicResource button_2U_V_Pressed_DrawingImage}" />
+                                <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground" Value="White" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
