@@ -1,8 +1,11 @@
-﻿using System;
+﻿ 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,7 +29,7 @@ namespace TestWindows
         {
             InitializeComponent();
             VirtualKeyboardManager.BindTo<TextBox>();
-            
+
             Closed += MainWindow_Closed;
         }
 
@@ -34,11 +37,6 @@ namespace TestWindows
         {
             VirtualKeyboardManager.ShutDown();
             App.Current.Shutdown();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            VirtualKeyboardManager.IsEnable = !VirtualKeyboardManager.IsEnable;
         }
     }
 }

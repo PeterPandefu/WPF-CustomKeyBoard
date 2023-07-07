@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace CustomKeyboard
 {
     /// <summary>
@@ -22,12 +23,11 @@ namespace CustomKeyboard
     public partial class KeyBoardControl : UserControl
     {
         public event Action CustomClosed;
-         
+        private bool Flag = false;
         public KeyBoardControl()
         {
             InitializeComponent();
-            this.btn_CapsLock.IsChecked = Console.CapsLock;
-            //this.RefreshCapsText();
+
         }
 
         private void Grid_Click(object sender, RoutedEventArgs e)
@@ -125,19 +125,70 @@ namespace CustomKeyboard
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var toggon in FindVisualChild<ToggonKeyboardKey>(this.boardGrid))
+            try
             {
-                string tag = toggon.Tag.ToString();
 
-                byte b = Convert.ToByte(tag);
-
-                if ((bool)toggon.IsChecked)
+                foreach (var toggon in FindVisualChild<ToggonKeyboardKey>(this.boardGrid))
                 {
-                    KeyHelper.OnKeyUp(b);
+                    string tag = toggon.Tag.ToString();
+
+                    if (string.IsNullOrEmpty(tag)) continue;
+
+                    byte b = Convert.ToByte(tag);
+
+                    if ((bool)toggon.IsChecked)
+                    {
+                        KeyHelper.OnKeyUp(b);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             CustomClosed?.Invoke();
+        }
+
+        /// <summary>
+        /// 中英文切换
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void switchEnOrCh_Click(object sender, RoutedEventArgs e)
+        {
+            if (Flag)
+            {
+                InputMethodHelper.SetInputLanguage(InputMethodHelper.EN_US);
+            }
+            else
+            {
+                InputMethodHelper.SetInputLanguage(InputMethodHelper.ZH_CN);
+            }
+
+            Flag = !Flag;
+
+            this.switchEnOrCh.IsChecked = Flag;
+        }
+
+        /// <summary>
+        /// 换行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void nextLine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void Refresh()
+        {
+            this.btn_CapsLock.IsChecked = Console.CapsLock;
+
+            //若当前输入法为中文  IsChecked=true
+            Flag = InputMethodHelper.GetKeyboardLayoutName().Contains("zh");
+
+            switchEnOrCh.IsChecked = Flag;
         }
     }
 }

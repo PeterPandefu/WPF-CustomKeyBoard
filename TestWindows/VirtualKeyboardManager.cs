@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -37,27 +38,38 @@ namespace TestWindows
         private static Process pipeClient;
         static VirtualKeyboardManager()
         {
-            AutomateTabTipOpen(FocusSubject.AsObservable());
+            try
+            {
 
-            AutomateTabTipClose(FocusSubject.AsObservable(), TabTipClosedSubject);
 
-            pipeClient = new Process();
 
-            pipeClient.StartInfo.FileName = @"C:\Project\SVN\ThirdPartLib\CustomKeyboard\bin\Debug\net5.0-windows\CustomKeyboard.exe";
+                AutomateTabTipOpen(FocusSubject.AsObservable());
 
-            _pipeServer = new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable);
+                AutomateTabTipClose(FocusSubject.AsObservable(), TabTipClosedSubject);
 
-            pipeClient.StartInfo.Arguments = _pipeServer.GetClientHandleAsString();
+                pipeClient = new Process();
 
-            pipeClient.StartInfo.UseShellExecute = false;
+                pipeClient.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["TargetExe"];
 
-            pipeClient.Start();
+                _pipeServer = new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable);
 
-            //_pipeServer.DisposeLocalCopyOfClientHandle();
+                pipeClient.StartInfo.Arguments = _pipeServer.GetClientHandleAsString();
 
-            _pipeStreamWriter = new StreamWriter(_pipeServer);
+                pipeClient.StartInfo.UseShellExecute = false;
 
-            _pipeStreamWriter.AutoFlush = true;
+                pipeClient.Start();
+
+                //_pipeServer.DisposeLocalCopyOfClientHandle();
+
+                _pipeStreamWriter = new StreamWriter(_pipeServer);
+
+                _pipeStreamWriter.AutoFlush = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\r\n" + ex.StackTrace + "\r\n" + pipeClient.StartInfo.FileName);
+            }
         }
 
         public static void ShutDown()
@@ -99,8 +111,9 @@ namespace TestWindows
         private static void AutomateTabTipClose(IObservable<Tuple<UIElement, bool>> focusObservable, Subject<bool> tabTipClosedSubject)
         {
             focusObservable
-                .ObserveOn(Scheduler.Default)
-                .Where(tuple => tuple.Item2 == false)
+                .ObserveOn(Scheduler.CurrentThread)
+                .Where(tuple =>
+                tuple.Item2 == false)
                 .Do(_ => Close())
                 .Subscribe(_ => tabTipClosedSubject.OnNext(true));
 

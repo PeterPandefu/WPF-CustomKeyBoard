@@ -37,7 +37,6 @@ namespace CustomKeyboard
                             textBox.SetValue(TextBox.TagProperty, Args);
                         }
                     }
-                   
                 }
             }));
     }

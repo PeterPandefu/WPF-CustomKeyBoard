@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "MNsbP2eE3Cqtf623x9JhxZ7JNzZOh6xrciXO54AP4ctpkAKedeGQQwJg6SHysyJ8GMPu1m3w197Aylb6/rN0Aw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Pandf\\Documents\\GitHub\\WPF-CustomKeyBoard\\CustomKeyboard.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Pandf\\.nuget\\packages\\system.reactive\\5.0.0\\system.reactive.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -29,22 +29,8 @@ namespace CustomKeyboard
 
         private void MainWindow_Closed(object? sender, EventArgs e)
         {
-            KeyBoardShowHelper._keyboardHook.UnHook();
             App.Current.Shutdown();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var width = double.Parse(tBoxWidth.Text);
-            KeyBoardWindow.Instance.SetParameter(width);
-            KeyBoardWindow.Instance.Show();
-        }
-
-        private void Button1_Click(object sender, RoutedEventArgs e)
-        {
-            var width = double.Parse(numberTBoxWidth.Text);
-            NumberBoardWindow.Instance.SetParameter(width);
-            NumberBoardWindow.Instance.Show();
-        }
     }
 }

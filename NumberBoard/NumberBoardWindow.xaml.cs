@@ -48,6 +48,8 @@ namespace CustomKeyboard
 
             nbc.CustomClosed += Hide;
 
+            this.Visibility = Visibility.Hidden;
+
             Loaded += NumberBoardWindow_Loaded;
         }
 
@@ -107,6 +109,8 @@ namespace CustomKeyboard
             int value = -20;
 
             SetWindowLong(intPtr, value, (IntPtr)0x8000000);
+
+           
         }
 
         public new void Hide()

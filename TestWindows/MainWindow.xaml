@@ -2,7 +2,7 @@
     x:Class="TestWindows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:custom="clr-namespace:CustomKeyboard;assembly=CustomKeyboard"
+ 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TestWindows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,17 +15,19 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0">
+            <TextBox
+                local:TextBoxKeyboardArgsAttachedProperties.KeyboardArgs="false,-1,-1,-1"
+                AcceptsReturn="True"
+                TextWrapping="Wrap" />
+        </Grid>
+
         <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <Button Click="Button_Click_1"
-                Width="120"
-                Height="60"
-                Margin="50"
-                Content="" />
-        </StackPanel>
-        <StackPanel
+            Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -34,13 +36,16 @@
             <TextBox
                 x:Name="tBoxWidth"
                 Width="90"
-                custom:TextBoxKeyboardArgsAttachedProperties.KeyboardArgs="false,1600,-1,-1" />
+                local:TextBoxKeyboardArgsAttachedProperties.KeyboardArgs="false,-1,-1,-1" />
+            <TextBox IsReadOnly="True" Visibility="Collapsed" />
             <TextBlock Text="数字键盘    " />
             <TextBox
                 x:Name="numberTBoxWidth"
                 Width="90"
                 Margin="1"
-                custom:TextBoxKeyboardArgsAttachedProperties.KeyboardArgs="true,400,466,1077" />
+                local:TextBoxKeyboardArgsAttachedProperties.KeyboardArgs="true,-1,-1,-1" />
+            <TextBox IsReadOnly="True" Visibility="Collapsed" />
+
         </StackPanel>
 
     </Grid>

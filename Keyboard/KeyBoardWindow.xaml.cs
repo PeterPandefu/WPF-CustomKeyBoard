@@ -27,7 +27,7 @@ namespace CustomKeyboard
         [DllImport("user32.dll", SetLastError = true)]
         public static extern UInt32 GetWindowLong(IntPtr hWnd, int index);
 
-        public bool IsShowing { get; set; } 
+        public bool IsShowing { get; set; }
 
         private static KeyBoardWindow instance = null;
         public static KeyBoardWindow Instance
@@ -43,11 +43,13 @@ namespace CustomKeyboard
             }
         }
 
-        private  KeyBoardWindow()
+        private KeyBoardWindow()
         {
             InitializeComponent();
 
             kbc.CustomClosed += Hide;
+
+            this.Visibility = Visibility.Hidden;
 
             Loaded += KeyBoardWindow_Loaded;
         }
@@ -76,7 +78,7 @@ namespace CustomKeyboard
         /// <summary>
         /// 指定长,宽,和位置
         /// </summary>
-        public void SetParameter(double width, double top,double left)
+        public void SetParameter(double width, double top, double left)
         {
             //double x = SystemParameters.WorkArea.Width;//得到屏幕工作区域宽度
             //double y = SystemParameters.WorkArea.Height;//得到屏幕工作区域高度
@@ -109,6 +111,7 @@ namespace CustomKeyboard
         {
             base.Show();
             IsShowing = true;
+            kbc.Refresh();
         }
 
         private void KeyBoardWindow_Loaded(object sender, RoutedEventArgs e)
@@ -120,6 +123,8 @@ namespace CustomKeyboard
             int value = -20;
 
             SetWindowLong(intPtr, value, (IntPtr)0x8000000);
+
+            this.Visibility = Visibility.Hidden;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -11,6 +11,7 @@
     MouseDown="Window_MouseDown"
     OpacityMask="White"
     ResizeMode="CanResize"
+    ShowInTaskbar="False"
     Topmost="True"
     WindowStyle="None"
     mc:Ignorable="d">

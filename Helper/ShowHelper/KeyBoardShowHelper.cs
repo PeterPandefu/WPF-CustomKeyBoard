@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
@@ -30,7 +31,7 @@ namespace CustomKeyboard
 
         private static readonly KeyBoardWindow _KeyBoardWindow;
 
-        private static readonly object _StateLock=new object();
+        private static readonly object _StateLock = new object();
 
         public static readonly KeyboardHook _keyboardHook;
         static KeyBoardShowHelper()
@@ -60,18 +61,32 @@ namespace CustomKeyboard
 
         public static void Close()
         {
-            if (!IsEnable) return;
-
-            lock (_StateLock)
+            try
             {
-                _KeyBoardWindow.Dispatcher.Invoke(() =>
+                if (!IsEnable) return;
+
+                lock (_StateLock)
                 {
-                    _NumberBoardWindow.Hide();
+                    _KeyBoardWindow.Dispatcher.Invoke(() =>
+                    {
 
-                    _KeyBoardWindow.Hide();
-
-                    TabTipClosedSubject.OnNext(true);
-                });
+                        if (IsNumberBoard)
+                        {
+                            Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss ffff") + "  Closed  " + "IsNumberBoard:" + IsNumberBoard + "-----_NumberBoardWindow.Visibility:" + _NumberBoardWindow.Visibility);
+                            if (_NumberBoardWindow.Visibility == Visibility.Visible)
+                                _NumberBoardWindow.Hide();
+                        }
+                        else
+                        {
+                            Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss ffff") + "  Closed  " + "IsNumberBoard:" + IsNumberBoard + "-----_KeyBoardWindow.Visibility:" + _KeyBoardWindow.Visibility);
+                            if (_KeyBoardWindow.Visibility == Visibility.Visible)
+                                _KeyBoardWindow.Hide();
+                        }
+                    });
+                }
+            }
+            catch
+            {
 
             }
         }
@@ -79,79 +94,92 @@ namespace CustomKeyboard
 
         public static void Open()
         {
-            if (!IsEnable) return;
-            lock (_StateLock)
+            try
             {
-                _KeyBoardWindow.Dispatcher.Invoke(() =>
+                if (!IsEnable) return;
+                lock (_StateLock)
                 {
-                    _NumberBoardWindow.Hide();
-
-                    _KeyBoardWindow.Hide();
-
-                    if (IsNumberBoard)
+                    _KeyBoardWindow.Dispatcher.Invoke(() =>
                     {
-                        if (Width == -1)
+                        if (IsNumberBoard)
                         {
-                            if (Top == -1 && Left == -1)
+                            Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss ffff") + "   Opened   " + "IsNumberBoard:" + IsNumberBoard + "-----_NumberBoardWindow.Visibility:" + _NumberBoardWindow.Visibility);
+
+                            if (_NumberBoardWindow.Visibility == Visibility.Hidden)
                             {
-                                _NumberBoardWindow.SetParameter(350);
-                                _NumberBoardWindow.Show();
-                            }
-                            else
-                            {
-                                _NumberBoardWindow.SetParameter(350, Top, Left);
-                                _NumberBoardWindow.Show();
+                                if (Width == -1)
+                                {
+                                    if (Top == -1 && Left == -1)
+                                    {
+                                        _NumberBoardWindow.SetParameter(350);
+                                        _NumberBoardWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        _NumberBoardWindow.SetParameter(350, Top, Left);
+                                        _NumberBoardWindow.Show();
+                                    }
+                                }
+                                else
+                                {
+                                    if (Top == -1 && Left == -1)
+                                    {
+                                        _NumberBoardWindow.SetParameter(Width);
+                                        _NumberBoardWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        _NumberBoardWindow.SetParameter(Width, Top, Left);
+                                        _NumberBoardWindow.Show();
+                                    }
+                                }
                             }
                         }
                         else
                         {
-                            if (Top == -1 && Left == -1)
-                            {
-                                _NumberBoardWindow.SetParameter(Width);
-                                _NumberBoardWindow.Show();
-                            }
-                            else
-                            {
-                                _NumberBoardWindow.SetParameter(Width, Top, Left);
-                                _NumberBoardWindow.Show();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (Width == -1)
-                        {
-                            if (Top == -1 && Left == -1)
-                            {
 
-                                _KeyBoardWindow.SetParameter(1400);
-                                _KeyBoardWindow.Show();
-                            }
-                            else
+                            Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss ffff") + "   Opened   " + "IsNumberBoard:" + IsNumberBoard + "-----_KeyBoardWindow.Visibility:" + _KeyBoardWindow.Visibility);
+                            if (_KeyBoardWindow.Visibility == Visibility.Hidden)
                             {
-                                _KeyBoardWindow.SetParameter(1400, Top, Left);
-                                _KeyBoardWindow.Show();
+                                if (Width == -1)
+                                {
+                                    if (Top == -1 && Left == -1)
+                                    {
+
+                                        _KeyBoardWindow.SetParameter(1400);
+                                        _KeyBoardWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        _KeyBoardWindow.SetParameter(1400, Top, Left);
+                                        _KeyBoardWindow.Show();
+                                    }
+                                }
+                                else
+                                {
+                                    if (Top == -1 && Left == -1)
+                                    {
+                                        _KeyBoardWindow.SetParameter(Width);
+                                        _KeyBoardWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        _KeyBoardWindow.SetParameter(Width, Top, Left);
+                                        _KeyBoardWindow.Show();
+                                    }
+                                }
                             }
+
+
                         }
-                        else
-                        {
-                            if (Top == -1 && Left == -1)
-                            {
-                                _KeyBoardWindow.SetParameter(Width);
-                                _KeyBoardWindow.Show();
-                            }
-                            else
-                            {
-                                _KeyBoardWindow.SetParameter(Width, Top, Left);
-                                _KeyBoardWindow.Show();
-                            }
-                        }
-                    }
-                });
+                    });
+
+                }
 
             }
-
-
+            catch
+            {
+            }
         }
 
         private static void AutomateTabTipClose(IObservable<Tuple<UIElement, bool>> focusObservable, Subject<bool> tabTipClosedSubject)
